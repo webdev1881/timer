@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Timer</title>
+	<script src="main.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div id="d1" class="container" style="text-align: center">
+		<div class="starter-template">
+			<p class="lead">
+			00:00:00:00
+			</p>
+			  <button id = "but" type="button" class="btn btn-default">Start</button>
+			  <button type="button" class="btn btn-default">Pause</button>
+			  <button id = "butClearLS" type="button" class="btn btn-default">Clear</button>
+		</div>
+	</div>
+<script>
+	var d = document;
+	var dat = new Date(0, 0, 0, 0, 0, 0, 0);
+	var btn1 = d.getElementsByClassName("btn btn-default")[0];
+	var btn2 = d.getElementsByClassName("btn btn-default")[1];
+	var btn3 = d.getElementsByClassName("btn btn-default")[2];
+	btn1.onclick = function(){timer()};
+	function timer(){
+		var start = setInterval(function(){	
+			var msk = dat.getMilliseconds();	
+			var sec = dat.getSeconds();
+			var min = dat.getMinutes();
+			var hou = dat.getHours();		
+			dat.setMilliseconds(dat.getMilliseconds() + 10)		
+			if(sec < 10){sec = "0"+sec};
+			if(min < 10){min = "0"+min};
+			if(hou < 10){hou = "0"+hou};
+			msk = msk/10
+			if(msk < 10){msk = "0"+msk;};
+			var res = (hou+":"+min+":"+sec+":"+msk);			
+			var el = d.getElementsByClassName("lead")[0];
+			el.innerHTML = res;
+			btn1.disabled = "true";		
+		btn2.onclick = function(){
+			clearInterval(start);
+			btn1.removeAttribute("disabled");
+		};
+		btn3.onclick = function(){
+			clearInterval(start);
+			btn1.removeAttribute("disabled");
+			el.innerHTML = "00:00:00:00";
+			dat = new Date(0, 0, 0, 0, 0, 0, 0);
+		};	
+	}, 10)}
+</script>
+</body>
+</html>
